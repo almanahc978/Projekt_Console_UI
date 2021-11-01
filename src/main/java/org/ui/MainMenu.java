@@ -1,41 +1,40 @@
-package org.ui.MainMenuActionBuilder;
+package org.ui;
 
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.DirectoryDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
+import org.logic.FileManager;
 
 import java.io.File;
 
-public class MainMenu {
-
-    private MultiWindowTextGUI ui;
-
-    public MainMenu(MultiWindowTextGUI ui){
-        this.ui = ui;
-    }
+public class MainMenu extends ActionListDialogBuilder {
 
     public void createMenu(MultiWindowTextGUI ui) {
-        new ActionListDialogBuilder()
-                .setTitle("Files")
+        setTitle("Files")
                 .setDescription("Main menu")
                 .addAction("Files", () -> {
                     File input = new FileDialogBuilder()
                             .setTitle("Open File")
                             .setDescription("Choose a file")
-                            .setActionLabel("Open")
+                            .setActionLabel("Choose")
                             .build()
                             .showDialog(ui);
-
+                    if (input != null) {
+                        if (input.exists()) {
+                            new FileOptions(input).createMenu(ui);
+                        } else {
+                            FileManager.createFile(input.getAbsolutePath());
+                        }
+                    }
                 })
                 .addAction("Directories", () -> {
                     File input = new DirectoryDialogBuilder()
                             .setTitle("Select directory")
                             .setDescription("Choose a directory")
-                            .setActionLabel("Select")
+                            .setActionLabel("Choose")
                             .build()
                             .showDialog(ui);
-                    System.out.println(input);
                 })
                 .build()
                 .showDialog(ui);

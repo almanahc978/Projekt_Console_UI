@@ -1,14 +1,13 @@
-package org.ui.window;
+package org.ui;
 
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
-import org.ui.MainMenuActionBuilder.MainMenu;
+import org.ui.MainMenu;
 
 import java.util.Arrays;
 
 public class MainWindow extends BasicWindow {
-
 
     MultiWindowTextGUI ui;
 
@@ -20,7 +19,6 @@ public class MainWindow extends BasicWindow {
     public MainWindow(String name, MultiWindowTextGUI ui) {
         super(name);
         this.ui = ui;
-//        setHints(Arrays.asList(Hint.CENTERED));
         contentPanel = new Panel(new GridLayout(2));
         setComponent(contentPanel);
 
@@ -29,7 +27,7 @@ public class MainWindow extends BasicWindow {
     public void createMainMenu() {
 
         startButton = new Button("OK", () -> {
-            new MainMenu(ui).createMenu(ui);
+            new MainMenu().createMenu(ui);
         });
 
         exitButton = new Button("OK", () -> {
