@@ -1,32 +1,53 @@
 package org.logo;
 
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.screen.Screen;
+import org.main.ScreenSingleton;
+import org.main.TerminalSingleton;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Logo {
-    public StringBuilder drawString(String text, String artChar, LogoSettings settings) {
-        BufferedImage image = getImageIntegerMode(settings.width, settings.height);
 
-        Graphics2D graphics2D = getGraphics2D(image.getGraphics(), settings);
-        graphics2D.drawString(text, 6, ((int) (settings.height * 0.67)));
-        StringBuilder stringBuilder = new StringBuilder();
+    private LogoSettings settings;
+    private int width;
+    private int height;
+    private BufferedImage image;
+    Graphics2D graphics2D;
+    private Screen screen = ScreenSingleton.getInstance();
 
-        for (int y = 0; y < settings.height; y++) {
-            stringBuilder = new StringBuilder();
+    public Logo(LogoSettings settings, TerminalSize terminalSize){
+        this.settings = settings;
+        this.width = terminalSize.getColumns();
+        this.height = terminalSize.getRows();
+        this.image = getImageIntegerMode(settings.width, settings.height);
+        this.graphics2D = getGraphics2D(image.getGraphics(), settings);
+    }
 
-            for (int x = 0; x < settings.width; x++) {
-                stringBuilder.append(image.getRGB(x, y) == -16777216 ? " " : artChar);
+
+    public void drawFirstLine(String text, String artChar) {
+        graphics2D.drawString(text, 0, ((int) (settings.height * 0.25)));
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                String c = image.getRGB(x, y) == -16777216 ? " " : artChar;
+                screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));
             }
-
-            if (stringBuilder.toString()
-                    .trim()
-                    .isEmpty()) {
-                continue;
-            }
-
-            System.out.println(stringBuilder);
         }
-        return stringBuilder;
+
+    }
+
+    public void drawSecondLine(String text, String artChar) {
+        graphics2D.drawString(text, 0, ((int) (settings.height * 0.50)));
+
+        for (int y = screen.getCursorPosition().getColumn() + 1; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                String c = image.getRGB(x, y) == -16777216 ? " " : artChar;
+                screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));
+            }
+        }
 
     }
 

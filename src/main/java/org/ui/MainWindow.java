@@ -21,7 +21,6 @@ public class MainWindow extends BasicWindow {
         this.ui = ui;
         contentPanel = new Panel(new GridLayout(2));
         setComponent(contentPanel);
-
     }
 
     public void createMainMenu() {
