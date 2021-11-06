@@ -27,29 +27,20 @@ public class Main {
         logo.draw("ChefeFile", "$", screen.getCursorPosition().getColumn(), screen.getCursorPosition().getRow(), 0.25);
         logo.draw("Manager", "$", screen.getCursorPosition().getColumn() + 1, 0, 0.5);
 
-//        terminal.addResizeListener((terminal1, newSize) -> {
-//            System.out.println('a');
-//            try {
-//                terminal.setCursorPosition(50,50);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            logo.draw("ChefeFile", "$", screen.getCursorPosition().getColumn(), screen.getCursorPosition().getRow(), 0.25);
-//            logo.draw("Manager", "$", screen.getCursorPosition().getColumn() + 1, 0, 0.5);
-//            try {
-//                screen.refresh();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-
+        terminal.addResizeListener((terminal1, newSize) -> {
+            try {
+                screen.refresh();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         screen.refresh();
 
         while (true) {
             KeyStroke keyStroke = screen.pollInput();
             if (keyStroke != null && (keyStroke.getKeyType() == KeyType.Enter)) {
                 MainWindow mainWindow = new MainWindow("ChefeFile Manager");
-                logo.clearTerminal();
+//                logo.clearTerminal();
                 mainWindow.createMainMenu();
                 ui.addWindowAndWait(mainWindow);
             } else if (keyStroke != null && (keyStroke.getKeyType() == KeyType.Escape)) {

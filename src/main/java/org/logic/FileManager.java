@@ -3,6 +3,7 @@ package org.logic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.Scanner;
 
@@ -24,8 +25,10 @@ public class FileManager {
         file.delete();
     }
 
-    public static void editFile(File file) {
-
+    public static void editFile(File file, String newData) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(file.getAbsolutePath());
+        writer.print(newData);
+        writer.close();
     }
 
     public static String openFile(File file) {

@@ -13,7 +13,7 @@ public class MultiWindowTextGUISingleton {
 
     public static synchronized MultiWindowTextGUI getInstance() {
         if (instance == null) {
-                instance =new MultiWindowTextGUI(ScreenSingleton.getInstance(), new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE_BRIGHT));
+                instance =new MultiWindowTextGUI(ScreenSingleton.getInstance(), new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.CYAN_BRIGHT));
         }
         return instance;
     }

@@ -1,5 +1,6 @@
 package org.ui;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
@@ -21,6 +22,7 @@ public class MainWindow extends BasicWindow {
         super(name);
         contentPanel = new Panel(new GridLayout(2));
         setComponent(contentPanel);
+        setHints(Arrays.asList(Window.Hint.CENTERED) );
     }
 
     public void createMainMenu() {

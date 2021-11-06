@@ -1,6 +1,4 @@
-/*TerminalSize terminalSize = screen.getTerminalSize();
 
-        int width = terminalSize.getColumns();
         int height = terminalSize.getRows();
 
         LogoSettings settings = new LogoSettings(new Font("TimesRoman", Font.BOLD, 20), 100, width-20);
@@ -25,3 +23,30 @@
                 screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));
             }
         }*/
+        /*TerminalSize terminalSize = screen.getTerminalSize();
+
+                int width = terminalSize.getColumns();
+                int height = terminalSize.getRows();
+
+                LogoSettings settings = new LogoSettings(new Font("TimesRoman", Font.BOLD, 20), 100, width-20);
+
+                BufferedImage image = getImageIntegerMode(settings.width, settings.height);
+
+                Graphics2D graphics2D = getGraphics2D(image.getGraphics(), settings);
+                graphics2D.drawString("ChefeFile", 0, ((int) (settings.height * 0.25)));
+
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        String c = image.getRGB(x, y) == -16777216 ? " " : "$";
+                        screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));
+                    }
+                }
+
+                graphics2D.drawString("Manager", 0, ((int) (settings.height * 0.50)));
+
+                for (int y = screen.getCursorPosition().getColumn()+1; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        String c = image.getRGB(x, y) == -16777216 ? " " : "$";
+                        screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));
+                    }
+                }*/
