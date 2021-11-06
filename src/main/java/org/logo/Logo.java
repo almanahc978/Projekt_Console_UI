@@ -18,7 +18,7 @@ public class Logo {
     Graphics2D graphics2D;
     private Screen screen = ScreenSingleton.getInstance();
 
-    public Logo(LogoSettings settings, TerminalSize terminalSize){
+    public Logo(LogoSettings settings, TerminalSize terminalSize) {
         this.settings = settings;
         this.width = terminalSize.getColumns();
         this.height = terminalSize.getRows();
@@ -26,23 +26,10 @@ public class Logo {
         this.graphics2D = getGraphics2D(image.getGraphics(), settings);
     }
 
-
-    public void drawFirstLine(String text, String artChar) {
-        graphics2D.drawString(text, 0, ((int) (settings.height * 0.25)));
+    public void draw(String text, String artChar, int column, int row, double heightMultiplayer) {
+        graphics2D.drawString(text, 0, ((int) (settings.height * heightMultiplayer)));
 
         for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                String c = image.getRGB(x, y) == -16777216 ? " " : artChar;
-                screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));
-            }
-        }
-
-    }
-
-    public void drawSecondLine(String text, String artChar) {
-        graphics2D.drawString(text, 0, ((int) (settings.height * 0.50)));
-
-        for (int y = screen.getCursorPosition().getColumn() + 1; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 String c = image.getRGB(x, y) == -16777216 ? " " : artChar;
                 screen.setCharacter(x, y, new TextCharacter(c.charAt(0)));

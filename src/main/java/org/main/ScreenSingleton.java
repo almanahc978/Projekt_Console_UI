@@ -12,14 +12,12 @@ public class ScreenSingleton {
 
     }
 
-    public static synchronized Screen getInstance(){
+    public static synchronized Screen getInstance() {
         if (instance == null) {
-            if (instance == null) {
-                try {
-                    instance = new TerminalScreen(TerminalSingleton.getInstance());
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
+            try {
+                instance = new TerminalScreen(TerminalSingleton.getInstance());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return instance;

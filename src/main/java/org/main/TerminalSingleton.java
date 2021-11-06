@@ -16,14 +16,12 @@ public class TerminalSingleton {
 
     public static synchronized Terminal getInstance() {
         if (instance == null) {
-            if (instance == null) {
-                try {
-                    instance = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8)
-                            .setInitialTerminalSize(new TerminalSize(90, 40))
-                            .createTerminal();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                instance = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8)
+                        .setInitialTerminalSize(new TerminalSize(90, 40))
+                        .createTerminal();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return instance;

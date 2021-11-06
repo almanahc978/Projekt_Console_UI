@@ -13,12 +13,12 @@ import org.logo.LogoSettings;
 import org.ui.MainWindow;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
 
         Terminal terminal = TerminalSingleton.getInstance();
         Screen screen = ScreenSingleton.getInstance();
@@ -26,23 +26,23 @@ public class Main {
         LogoSettings settings = new LogoSettings(new Font("TimesRoman", Font.BOLD, 20), 100, 70);
         Logo logo = new Logo(settings, screen.getTerminalSize());
 
-        MultiWindowTextGUI ui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK));
+        MultiWindowTextGUI ui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE_BRIGHT));
 
         screen.startScreen();
 
-        logo.drawFirstLine("ChefeFile", "$");
-        logo.drawSecondLine("Manager", "$");
+        logo.draw("ChefeFile", "$", screen.getCursorPosition().getColumn(), screen.getCursorPosition().getRow(), 0.25);
+        logo.draw("Manager", "$", screen.getCursorPosition().getColumn() + 1, 0, 0.5);
 
         screen.refresh();
 
-        while(true) {
+        while (true) {
             KeyStroke keyStroke = screen.pollInput();
             if (keyStroke != null && (keyStroke.getKeyType() == KeyType.Enter)) {
                 MainWindow mainWindow = new MainWindow("ChefeFile Manager", ui);
                 mainWindow.createMainMenu();
                 ui.addWindowAndWait(mainWindow);
-            } else if(keyStroke != null && (keyStroke.getKeyType() == KeyType.Escape)){
-                break;
+            } else if (keyStroke != null && (keyStroke.getKeyType() == KeyType.Escape)) {
+                System.exit(0);
             }
         }
     }
