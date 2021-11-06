@@ -8,6 +8,7 @@ import org.main.TerminalSingleton;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Logo {
 
@@ -38,16 +39,23 @@ public class Logo {
 
     }
 
+    public void clearTerminal() throws InterruptedException, IOException {
+        for (int y = 2; y < height; y++) {
+            for (int x = 1; x < width; x++) {
+                screen.setCharacter(x, y, new TextCharacter(' '));
+                screen.refresh();
+            }
+        }
+    }
+
     private BufferedImage getImageIntegerMode(int width, int height) {
         return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
     private Graphics2D getGraphics2D(Graphics graphics, LogoSettings settings) {
         graphics.setFont(settings.font);
-
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
         return graphics2D;
     }
 

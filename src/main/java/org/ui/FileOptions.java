@@ -5,6 +5,7 @@ import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.dialogs.*;
 import org.logic.FileManager;
+import org.main.MultiWindowTextGUISingleton;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +16,10 @@ public class FileOptions extends ActionListDialogBuilder {
     public FileOptions(File file){
         this.file = file;
     }
+    MultiWindowTextGUI ui = MultiWindowTextGUISingleton.getInstance();
 
-    public void createMenu(MultiWindowTextGUI ui) {
+
+    public void createMenu() {
         setTitle("Files")
                 .setDescription("File options")
                 .addAction("Open", ()->{

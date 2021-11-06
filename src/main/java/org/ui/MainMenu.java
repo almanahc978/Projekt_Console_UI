@@ -5,12 +5,15 @@ import com.googlecode.lanterna.gui2.dialogs.ActionListDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.DirectoryDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
 import org.logic.FileManager;
+import org.main.MultiWindowTextGUISingleton;
 
 import java.io.File;
 
 public class MainMenu extends ActionListDialogBuilder {
 
-    public void createMenu(MultiWindowTextGUI ui) {
+    MultiWindowTextGUI ui = MultiWindowTextGUISingleton.getInstance();
+
+    public void createMenu() {
         setTitle("Files")
                 .setDescription("Main menu")
                 .addAction("Files", () -> {
@@ -22,7 +25,7 @@ public class MainMenu extends ActionListDialogBuilder {
                             .showDialog(ui);
                     if (input != null) {
                         if (input.exists()) {
-                            new FileOptions(input).createMenu(ui);
+                            new FileOptions(input).createMenu();
                         } else {
                             FileManager.createFile(input.getAbsolutePath());
                         }

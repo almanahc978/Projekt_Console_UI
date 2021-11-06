@@ -3,22 +3,22 @@ package org.ui;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import org.main.MultiWindowTextGUISingleton;
 import org.ui.MainMenu;
 
 import java.util.Arrays;
 
 public class MainWindow extends BasicWindow {
 
-    MultiWindowTextGUI ui;
+    MultiWindowTextGUI ui = MultiWindowTextGUISingleton.getInstance();
 
     private Panel contentPanel;
     private Button startButton;
     private Button exitButton;
     private Button aboutButton;
 
-    public MainWindow(String name, MultiWindowTextGUI ui) {
+    public MainWindow(String name) {
         super(name);
-        this.ui = ui;
         contentPanel = new Panel(new GridLayout(2));
         setComponent(contentPanel);
     }
@@ -26,7 +26,7 @@ public class MainWindow extends BasicWindow {
     public void createMainMenu() {
 
         startButton = new Button("OK", () -> {
-            new MainMenu().createMenu(ui);
+            new MainMenu().createMenu();
         });
 
         exitButton = new Button("OK", () -> {
