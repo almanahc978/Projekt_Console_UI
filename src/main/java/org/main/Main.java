@@ -42,6 +42,7 @@ public class Main {
                 mainWindow.createMainMenu();
                 ui.addWindowAndWait(mainWindow);
             } else if(keyStroke != null && (keyStroke.getKeyType() == KeyType.Escape)){
+                System.exit(0);
                 break;
             }
         }
