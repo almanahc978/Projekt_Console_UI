@@ -18,8 +18,9 @@ public class FileManager {
     }
 
     public static void renameFile(File file, String newName) throws IOException {
-        Files.move(file.toPath(), file.toPath().resolveSibling(newName));
+        file.renameTo(new File(newName));
     }
+
 
     public static void deleteFile(File file) {
         file.delete();

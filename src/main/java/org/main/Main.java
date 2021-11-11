@@ -5,6 +5,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.logic.KeyboardListener;
 import org.logo.Logo;
 import org.logo.LogoSettings;
 import org.ui.MainWindow;
@@ -40,8 +41,7 @@ public class Main {
             KeyStroke keyStroke = screen.pollInput();
             if (keyStroke != null && (keyStroke.getKeyType() == KeyType.Enter)) {
                 MainWindow mainWindow = new MainWindow("ChefeFile Manager");
-//                logo.clearTerminal();
-                mainWindow.createMainMenu();
+                logo.clearTerminal();
                 ui.addWindowAndWait(mainWindow);
             } else if (keyStroke != null && (keyStroke.getKeyType() == KeyType.Escape)) {
                 System.exit(0);

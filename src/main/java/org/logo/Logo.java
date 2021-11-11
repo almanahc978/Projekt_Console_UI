@@ -9,6 +9,8 @@ import org.main.TerminalSingleton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Logo {
 
@@ -39,10 +41,27 @@ public class Logo {
 
     }
 
+    public static ArrayList getRandomNonRepeatingIntegers(int size, int min, int max) {
+        ArrayList numbers = new ArrayList();
+        Random random = new Random();
+        while (numbers.size() < size) {
+            //Get Random numbers between range
+            int randomNumber = random.nextInt((max - min) + 1) + min;
+            //Check for duplicate values
+            if (!numbers.contains(randomNumber)) {
+                numbers.add(randomNumber);
+            }
+        }
+        return numbers;
+    }
+
+
     public void clearTerminal() throws InterruptedException, IOException {
-        for (int y = 2; y < height; y++) {
-            for (int x = 1; x < width; x++) {
-                screen.setCharacter(x, y, new TextCharacter(' '));
+        ArrayList rowList = getRandomNonRepeatingIntegers(height +1 , 0, height);
+        ArrayList columnList = getRandomNonRepeatingIntegers(width +1 , 0, width);
+        for (int y = 0; y < rowList.size() ; y++) {
+            for (int x = 0; x < columnList.size(); x++) {
+                screen.setCharacter((Integer) columnList.get(x), (Integer) rowList.get(y), new TextCharacter(' '));
                 screen.refresh();
             }
         }
