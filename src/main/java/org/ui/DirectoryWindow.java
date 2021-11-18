@@ -6,10 +6,9 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.WindowListener;
-import com.googlecode.lanterna.gui2.dialogs.FileDialog;
-import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.DirectoryDialog;
+import com.googlecode.lanterna.gui2.dialogs.DirectoryDialogBuilder;
 import com.googlecode.lanterna.input.KeyStroke;
-import org.logic.FileManager;
 import org.main.MultiWindowTextGUISingleton;
 
 import java.awt.*;
@@ -19,47 +18,29 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class FileWindow extends BasicWindow {
-
-    private final FileDialog fileDialog;
-    private final FileDialogBuilder fileDialogBuilder = new FileDialogBuilder();
+public class DirectoryWindow extends BasicWindow {
+    private final DirectoryDialogBuilder directoryDialogBuilder = new DirectoryDialogBuilder();
     private final MultiWindowTextGUI ui = MultiWindowTextGUISingleton.getInstance();
     private final Path path = Paths.get("C:\\Users\\User");
-    private  FileOptions fileOptions;
-
-    private Robot r;
+    private final DirectoryDialog directoryDialog;
 
 
-    public FileWindow() {
+    public DirectoryWindow(){
         createFileWindow();
-        fileDialog = fileDialogBuilder.build();
+        directoryDialog = directoryDialogBuilder.build();
         addListener();
 
-        try {
-            r = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-
-        File input = fileDialog.showDialog(ui);
-        if (input != null) {
-            if (input.exists()) {
-                fileOptions = new FileOptions(input);
-            } else {
-                FileManager.createFile(input.getAbsolutePath());
-            }
-        }
     }
 
-    private void createFileWindow() {
-        fileDialogBuilder.setTitle("Open File")
+    private void createFileWindow(){
+        directoryDialogBuilder.setTitle("Open File")
                 .setDescription("Choose a file")
                 .setActionLabel("Choose(F1)/Close(F2)")
-                .setSelectedFile(new File(String.valueOf(path)));
+                .setSelectedDirectory(new File(String.valueOf(path)));
     }
 
-    private void addListener() {
-        fileDialog.addWindowListener(new WindowListener() {
+    private void addListener(){
+        directoryDialog.addWindowListener(new WindowListener() {
             @Override
             public void onResized(Window window, TerminalSize oldSize, TerminalSize newSize) {
 
@@ -77,13 +58,19 @@ public class FileWindow extends BasicWindow {
 
             @Override
             public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
+                Robot r = null;
+                try {
+                    r = new Robot();
+                } catch (AWTException e) {
+                    e.printStackTrace();
+                }
                 switch (keyStroke.getKeyType()) {
                     case F1:
                         r.keyPress(KeyEvent.VK_ENTER);
                         r.keyRelease(KeyEvent.VK_ENTER);
                         break;
                     case F2:
-                        fileDialog.close();
+                        directoryDialog.close();
                         break;
                     case Escape:
                         basePane.close();

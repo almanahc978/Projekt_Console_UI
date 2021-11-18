@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class FileManager {
+
     public static void createFile(String absolutePath) {
         try {
             File myObj = new File(absolutePath);
@@ -46,4 +49,20 @@ public class FileManager {
         }
         return data.toString();
     }
+
+    public static void copyFile(File file, String copyName) {
+        if (copyName == null) {
+            copyName = file.getName() + "(copy)";
+        }
+
+        Path path  = Paths.get(file.getAbsolutePath());
+        Path copiedFile = path.resolveSibling(copyName);
+
+        try {
+            Files.copy(path, copiedFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
