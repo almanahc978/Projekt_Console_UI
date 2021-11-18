@@ -45,8 +45,6 @@ public class MainWindow extends BasicWindow {
     }
 
     private Runnable createFileMenu() {
-        ui.removeWindow(ui.getActiveWindow());
-
         return () -> {
             MainMenu mainMenu = null;
             try {
@@ -60,16 +58,13 @@ public class MainWindow extends BasicWindow {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             ui.addWindow(mainMenu);
             ui.removeWindow(mainMenu);
-
             try {
                 ui.updateScreen();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         };
     }
 

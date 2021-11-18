@@ -21,7 +21,9 @@ public class FileManager {
     }
 
     public static void renameFile(File file, String newName) throws IOException {
-        file.renameTo(new File(newName));
+        Path path = Paths.get(file.getAbsolutePath());
+        Path copiedFile = path.resolveSibling(newName);
+        file.renameTo(new File(copiedFile.toString()));
     }
 
 
@@ -51,18 +53,21 @@ public class FileManager {
     }
 
     public static void copyFile(File file, String copyName) {
-        if (copyName == null) {
-            copyName = file.getName() + "(copy)";
+        String newName = copyName;
+        if( copyName.equals("")){
+            newName = file.getName() + "_copy";
         }
 
-        Path path  = Paths.get(file.getAbsolutePath());
-        Path copiedFile = path.resolveSibling(copyName);
+        Path path = Paths.get(file.getAbsolutePath());
+        Path copiedFile = path.resolveSibling(newName);
 
         try {
             Files.copy(path, copiedFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
 }

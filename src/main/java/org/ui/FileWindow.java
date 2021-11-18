@@ -24,7 +24,7 @@ public class FileWindow extends BasicWindow {
     private final FileDialog fileDialog;
     private final FileDialogBuilder fileDialogBuilder = new FileDialogBuilder();
     private final MultiWindowTextGUI ui = MultiWindowTextGUISingleton.getInstance();
-    private final Path path = Paths.get("C:\\Users\\User");
+    private final Path path = Paths.get("C:\\Users\\User\\Documents");
     private  FileOptions fileOptions;
 
     private Robot r;
@@ -79,6 +79,8 @@ public class FileWindow extends BasicWindow {
             public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
                 switch (keyStroke.getKeyType()) {
                     case F1:
+                        r.keyPress(KeyEvent.VK_ENTER);
+                        r.keyRelease(KeyEvent.VK_ENTER);
                         r.keyPress(KeyEvent.VK_ENTER);
                         r.keyRelease(KeyEvent.VK_ENTER);
                         break;
