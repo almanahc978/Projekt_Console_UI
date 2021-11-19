@@ -30,6 +30,7 @@ public class MainMenu extends BasicWindow {
 
     private Runnable openFileDialog() {
         return () -> {
+            actionListDialog.close();
             FileWindow fileWindow = new FileWindow();
             ui.addWindow(fileWindow);
             ui.removeWindow(fileWindow);
@@ -43,6 +44,7 @@ public class MainMenu extends BasicWindow {
 
     private Runnable openDirectoryDialog() {
         return () -> {
+            actionListDialog.close();
             DirectoryWindow directoryWindow = new DirectoryWindow();
             ui.addWindow(directoryWindow);
             ui.removeWindow(directoryWindow);

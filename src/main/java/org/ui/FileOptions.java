@@ -32,7 +32,6 @@ public class FileOptions extends BasicWindow {
 
     private Robot r;
 
-
     public FileOptions(File file) {
         try {
             r = new Robot();
@@ -41,7 +40,7 @@ public class FileOptions extends BasicWindow {
         }
 
         createMenu();
-        actionListDialog = actionListDialogBuilder.build();
+        actionListDialog = actionListDialogBuilder.setListBoxSize(new TerminalSize(20,5)).build();
         addListener();
 
         this.file = file;
@@ -84,7 +83,8 @@ public class FileOptions extends BasicWindow {
                             r.keyPress(KeyEvent.VK_ENTER);
                             r.keyRelease(KeyEvent.VK_ENTER);
                             break;
-                        case F2: ;
+                        case F2:
+                            ;
                             textInputDialog.close();
                             break;
 
@@ -127,7 +127,7 @@ public class FileOptions extends BasicWindow {
         return () -> {
             String data = FileManager.openFile(file);
             TextInputDialog textInputDialog = new TextInputDialogBuilder()
-                    .setTitle(file.getName()+ "        F1(SAVE)/F2(EXIT)")
+                    .setTitle(file.getName() + "        F1(SAVE)/F2(EXIT)")
                     .setInitialContent(data)
                     .setTextBoxSize(new TerminalSize(80, 30))
                     .setExtraWindowHints(set)
@@ -206,18 +206,19 @@ public class FileOptions extends BasicWindow {
                     .setDescription("Enter new name for a copy")
                     .build()
                     .showDialog(ui);
-
-            FileManager.copyFile(file, copyName);
-            actionListDialog.close();
-            new MessageDialogBuilder()
-                    .setTitle("Copied    " + file.getName())
-                    .setText(file.getName() + " has been copied.")
-                    .addButton(MessageDialogButton.Close)
-                    .build()
-                    .showDialog(ui);
-        };
+            if (copyName != null) {
+                FileManager.copyFile(file, copyName);
+                actionListDialog.close();
+                new MessageDialogBuilder()
+                        .setTitle("Copied    " + file.getName())
+                        .setText(file.getName() + " has been copied.")
+                        .addButton(MessageDialogButton.Close)
+                        .build()
+                        .showDialog(ui);
+            }
+        }
+                ;
     }
-
 
     private void createMenu() {
         actionListDialogBuilder.setTitle("Files")

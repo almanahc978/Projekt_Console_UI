@@ -17,6 +17,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainWindow extends BasicWindow {
@@ -26,7 +28,8 @@ public class MainWindow extends BasicWindow {
     private Button startButton;
     private Button exitButton;
     private Button aboutButton;
-    private MessageDialogBuilder messageDialogBuilder;
+    private final Set<Hint> set = new HashSet<>(Arrays.asList(Window.Hint.FIT_TERMINAL_WINDOW, Window.Hint.CENTERED, Window.Hint.NO_POST_RENDERING));
+
 
     private Robot r;
 
@@ -74,14 +77,11 @@ public class MainWindow extends BasicWindow {
 
     private Runnable createAboutDialog() {
         return () -> {
-            if (messageDialogBuilder == null) {
-                messageDialogBuilder = new MessageDialogBuilder()
-                        .setExtraWindowHints(Arrays.asList(Hint.MENU_POPUP, Hint.CENTERED))
-                        .setTitle("About")
-                        .setText("about")
-                        .addButton(MessageDialogButton.OK);
-            }
-            messageDialogBuilder
+            new MessageDialogBuilder()
+                    .setTitle("About us")
+                    .setText(" Kamil Zalewski \n Jędrzej Dąborwski \n ChefeFile Manager \n       @2021 v.1.3")
+                    .setExtraWindowHints(set)
+                    .addButton(MessageDialogButton.Close)
                     .build()
                     .showDialog(ui);
         };

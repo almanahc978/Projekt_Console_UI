@@ -8,6 +8,8 @@ import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.WindowListener;
 import com.googlecode.lanterna.gui2.dialogs.FileDialog;
 import com.googlecode.lanterna.gui2.dialogs.FileDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogBuilder;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 import com.googlecode.lanterna.input.KeyStroke;
 import org.logic.FileManager;
 import org.main.MultiWindowTextGUISingleton;
@@ -44,9 +46,16 @@ public class FileWindow extends BasicWindow {
         File input = fileDialog.showDialog(ui);
         if (input != null) {
             if (input.exists()) {
+                fileDialog.close();
                 fileOptions = new FileOptions(input);
             } else {
                 FileManager.createFile(input.getAbsolutePath());
+                new MessageDialogBuilder()
+                        .setTitle("Created    " + input.getName())
+                        .setText(input.getName() + " file created.")
+                        .addButton(MessageDialogButton.Close)
+                        .build()
+                        .showDialog(ui);
             }
         }
     }

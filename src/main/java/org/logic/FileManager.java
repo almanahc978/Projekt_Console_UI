@@ -66,7 +66,9 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void getFileInfo(File file){
 
     }
 
