@@ -105,20 +105,25 @@ public class FileOptions extends BasicWindow {
                     .setDescription("Enter new name")
                     .build()
                     .showDialog(ui);
-
-            try {
-                FileManager.renameFile(file, newName);
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(newName == null){
+                actionListDialog.close();
             }
-            actionListDialog.close();
-            new MessageDialogBuilder()
-                    .setTitle("Renamed    " + file.getName())
-                    .setText(file.getName() + " file rename to " + newName)
-                    .addButton(MessageDialogButton.Close)
-                    .build()
-                    .showDialog(ui);
+            else if( !newName.equals("")) {
+                try {
+                    FileManager.renameFile(file, newName);
+                    new MessageDialogBuilder()
+                            .setTitle("Renamed    " + file.getName())
+                            .setText(file.getName() + " file rename to " + newName)
+                            .addButton(MessageDialogButton.Close)
+                            .build()
+                            .showDialog(ui);
+                    actionListDialog.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         };
 
     }
@@ -206,7 +211,6 @@ public class FileOptions extends BasicWindow {
                     .setDescription("Enter new name for a copy")
                     .build()
                     .showDialog(ui);
-            if (copyName != null) {
                 FileManager.copyFile(file, copyName);
                 actionListDialog.close();
                 new MessageDialogBuilder()
@@ -215,7 +219,7 @@ public class FileOptions extends BasicWindow {
                         .addButton(MessageDialogButton.Close)
                         .build()
                         .showDialog(ui);
-            }
+
         }
                 ;
     }

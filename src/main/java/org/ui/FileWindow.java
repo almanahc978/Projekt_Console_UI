@@ -26,7 +26,7 @@ public class FileWindow extends BasicWindow {
     private final FileDialog fileDialog;
     private final FileDialogBuilder fileDialogBuilder = new FileDialogBuilder();
     private final MultiWindowTextGUI ui = MultiWindowTextGUISingleton.getInstance();
-    private final Path path = Paths.get("C:\\Users\\User\\Documents");
+    private final Path path = Paths.get("C:\\Users\\User");
     private  FileOptions fileOptions;
 
     private Robot r;
@@ -52,7 +52,7 @@ public class FileWindow extends BasicWindow {
                 FileManager.createFile(input.getAbsolutePath());
                 new MessageDialogBuilder()
                         .setTitle("Created    " + input.getName())
-                        .setText(input.getName() + " file created.")
+                        .setText(input.getName() + " file created.              ")
                         .addButton(MessageDialogButton.Close)
                         .build()
                         .showDialog(ui);

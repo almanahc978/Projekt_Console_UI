@@ -23,7 +23,7 @@ public class MainMenu extends BasicWindow {
 
     public MainMenu() throws IOException {
         createMenu();
-        actionListDialog = actionListDialogBuilder.build();
+        actionListDialog = actionListDialogBuilder.setListBoxSize(new TerminalSize(20,5)).build();
         addListener();
         actionListDialog.showDialog(ui);
     }

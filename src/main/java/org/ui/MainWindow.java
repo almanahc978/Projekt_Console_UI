@@ -79,8 +79,7 @@ public class MainWindow extends BasicWindow {
         return () -> {
             new MessageDialogBuilder()
                     .setTitle("About us")
-                    .setText(" Kamil Zalewski \n Jędrzej Dąborwski \n ChefeFile Manager \n       @2021 v.1.3")
-                    .setExtraWindowHints(set)
+                    .setText(" Kamil Zalewski && Jędrzej Dąbrowski \n ChefeFile Manager             @2021\n MIT License \n v.1.3")
                     .addButton(MessageDialogButton.Close)
                     .build()
                     .showDialog(ui);

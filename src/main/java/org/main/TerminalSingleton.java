@@ -18,7 +18,7 @@ public class TerminalSingleton {
         if (instance == null) {
             try {
                 instance = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8)
-                        .setInitialTerminalSize(new TerminalSize(90, 40))
+                        .setInitialTerminalSize(new TerminalSize(90, 40)).setTerminalEmulatorTitle("ChefeFile Manager")
                         .createTerminal();
             } catch (IOException e) {
                 e.printStackTrace();
